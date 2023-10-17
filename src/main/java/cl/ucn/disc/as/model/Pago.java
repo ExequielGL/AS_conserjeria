@@ -25,7 +25,7 @@ public class Pago extends BaseModel {
     private Instant fechaPago;
 
     @Getter
-    @OneToOne
+    @NotNull
     private Integer monto;
 
     @ManyToOne

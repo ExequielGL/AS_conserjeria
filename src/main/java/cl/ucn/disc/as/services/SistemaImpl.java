@@ -5,6 +5,7 @@ import cl.ucn.disc.as.exceptions.PerDepNotFoundException;
 import cl.ucn.disc.as.exceptions.SistemaException;
 import cl.ucn.disc.as.model.*;
 import io.ebean.Database;
+import io.ebean.Query;
 import lombok.extern.slf4j.Slf4j;
 import org.jetbrains.annotations.NotNull;
 
@@ -47,6 +48,7 @@ public class SistemaImpl implements Sistema{
         return edificio;
     }
 
+    @Override
     public Persona add(Persona persona) {
         try {
             this.database.save(persona);
@@ -58,6 +60,7 @@ public class SistemaImpl implements Sistema{
         return persona;
     }
 
+    @Override
     public Departamento addDepartamento(Departamento departamento, Edificio edificio) {
 
         Departamento departamentoActualizado = Departamento.builder()
@@ -77,6 +80,7 @@ public class SistemaImpl implements Sistema{
         return departamentoActualizado;
     }
 
+    @Override
     public Departamento addDepartamento(Departamento departamento, Long idEdificio) {
 
         Edificio edificio = this.database.find(Edificio.class, idEdificio);
@@ -102,6 +106,7 @@ public class SistemaImpl implements Sistema{
         return departamentoActualizado;
     }
 
+    @Override
     public Contrato realizarContrato(Persona duenio, Departamento departamento, Instant fechaPago) {
         Contrato contrato = Contrato.builder()
                 .fechaPago(fechaPago)
@@ -120,6 +125,7 @@ public class SistemaImpl implements Sistema{
         return contrato;
     }
 
+    @Override
     public Contrato realizarContrato(Long idDuenio, Long idDepartamento, Instant fechaPago) {
 
         Persona duenio = this.database.find(Persona.class, idDuenio);
@@ -147,18 +153,24 @@ public class SistemaImpl implements Sistema{
         return contrato;
     }
 
-    public List<Contrato> getContratos(){
-        //return contratos;
-        return null;
+    @Override
+    public List<Contrato> getContratos() {
+        Query<Contrato> query = database.find(Contrato.class);
+        return query.findList();
     }
 
-    public List<Persona> getPersonas(){
-        //return personas;
-        return null;
+    @Override
+    public List<Persona> getPersonas() {
+        Query<Persona> query = database.find(Persona.class);
+        return query.findList();
     }
 
-    public List<Pago> getPagos(String rut){
-        //return pagos;
-        return null;
+    @Override
+    public List<Pago> getPagos(String rut) {
+        Query<Pago> query = database.find(Pago.class)
+                .where()
+                .eq("persona.rut", rut)
+                .query();
+        return query.findList();
     }
 }
