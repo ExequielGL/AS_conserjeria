@@ -1,0 +1,44 @@
+@startuml
+
+class BaseModel {
+  -id: Long
+  -version: Long
+  -created: Instant
+  -modified: Instant
+}
+
+class Persona {
+  -nombre: String
+  -email: String
+  -telefono: String
+}
+
+class Edificio {
+  -nombre: String
+  -direccion: String
+  -cantPisos: Integer
+  -departamentos: List<Departamento>
+}
+
+class Departamento {
+  -numero: int
+  -piso: int
+  -edificio: Edificio
+  -duenio: Persona
+}
+
+class Contrato {
+  -duenio: Persona
+  -fechaPago: Instant
+}
+
+Persona --o{ Departamento : "es dueño de"
+Edificio -o{ Departamento : "contiene"
+Persona -o{ Contrato : "tiene contrato con"
+
+BaseModel <|-- Persona
+BaseModel <|-- Edificio
+BaseModel <|-- Departamento
+BaseModel <|-- Contrato
+
+@enduml
