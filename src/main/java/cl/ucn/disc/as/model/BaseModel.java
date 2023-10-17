@@ -20,7 +20,6 @@ import java.time.Instant;
  *
  * @author Diego Urrutia-Astorga.
  */
-@ToString
 @MappedSuperclass
 public abstract class BaseModel {
 
@@ -56,4 +55,13 @@ public abstract class BaseModel {
     @WhenModified
     private Instant modified;
 
+    @Override
+    public String toString() {
+        return "BaseModel{" +
+                "id=" + id +
+                ", created=" + created +
+                ", modified=" + modified +
+                ", version=" + version +
+                '}';
+    }
 }

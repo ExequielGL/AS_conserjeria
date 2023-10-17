@@ -14,6 +14,9 @@ import lombok.Getter;
 import lombok.ToString;
 
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * The Persona class.
@@ -61,6 +64,9 @@ public class Persona extends BaseModel {
     @NotNull
     private String telefono;
 
+    @OneToMany(mappedBy = "persona")
+    private List<Contrato> contratos;
+
     /**
      * Custom builder to validate.
      */
@@ -81,7 +87,9 @@ public class Persona extends BaseModel {
                 throw new IllegalDomainException("Email no valido: "+this.email);
             }
 
-            return new Persona(this.rut, this.nombre, this.apellidos, this.email, this.telefono);
+            this.contratos = new ArrayList<>();
+
+            return new Persona(this.rut, this.nombre, this.apellidos, this.email, this.telefono,this.contratos);
         }
     }
 

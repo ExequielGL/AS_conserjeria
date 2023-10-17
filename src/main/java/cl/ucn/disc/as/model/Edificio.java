@@ -8,7 +8,7 @@ import javax.persistence.OneToMany;
 import java.util.ArrayList;
 import java.util.List;
 
-@ToString(callSuper = true)
+@Getter
 @AllArgsConstructor
 @Builder
 @Entity
@@ -18,23 +18,29 @@ public class Edificio extends BaseModel {
      * The Nombre.
      */
     @NotNull
-    @Getter
     private String nombre;
 
     /**
      * The Direccion.
      */
     @NotNull
-    @Getter
     private String direccion;
 
-    @Builder.Default
-    @Getter
     @OneToMany(mappedBy = "edificio")
-    private List<Departamento> departamentos = new ArrayList<>();
+    private List<Departamento> departamentos;
 
     public void addDepartamento(Departamento departamento) {
         departamentos.add(departamento);
     }
 
+    @Override
+    public String toString() {
+        return "Edificio{" +
+                "super=" + super.toString() + // Llama al método toString() de BaseModel
+                ", id=" + getId() +
+                ", nombre='" + nombre + '\'' +
+                ", direccion='" + direccion + '\'' +
+                ", departamentos=" + departamentos +
+                '}';
+    }
 }

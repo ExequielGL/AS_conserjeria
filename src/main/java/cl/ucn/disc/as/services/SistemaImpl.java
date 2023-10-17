@@ -70,6 +70,7 @@ public class SistemaImpl implements Sistema{
                 .build();
 
         try {
+            edificio.addDepartamento(departamentoActualizado);
             this.database.save(departamentoActualizado);
         } catch (PersistenceException ex) {
             //TODO: save the exception
@@ -96,7 +97,9 @@ public class SistemaImpl implements Sistema{
                 .build();
 
         try {
+            edificio.addDepartamento(departamentoActualizado);
             this.database.save(departamentoActualizado);
+
         } catch (PersistenceException ex) {
             //TODO: save the exception
             log.error("Error ", ex);
@@ -110,7 +113,7 @@ public class SistemaImpl implements Sistema{
     public Contrato realizarContrato(Persona duenio, Departamento departamento, Instant fechaPago) {
         Contrato contrato = Contrato.builder()
                 .fechaPago(fechaPago)
-                .duenio(duenio)
+                .persona(duenio)
                 .departamento(departamento)
                 .build();
 
@@ -135,10 +138,9 @@ public class SistemaImpl implements Sistema{
             throw new PerDepNotFoundException("No se encontró la persona o el departamento");
         }
 
-        // Utilizamos Lombok @Builder para construir el contrato con los valores proporcionados.
         Contrato contrato = Contrato.builder()
                 .fechaPago(fechaPago)
-                .duenio(duenio)
+                .persona(duenio)
                 .departamento(departamento)
                 .build();
 

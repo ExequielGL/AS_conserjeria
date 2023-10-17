@@ -4,10 +4,9 @@ import io.ebean.annotation.NotNull;
 import lombok.*;
 
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import java.time.Instant;
-import java.util.ArrayList;
 import java.util.List;
 
 @ToString(callSuper = true)
@@ -16,21 +15,22 @@ import java.util.List;
 @Entity
 public class Contrato extends BaseModel {
 
-    @Getter
+
     @NotNull
+    @Getter
     private Instant fechaPago;
 
-    @Getter
-    @OneToOne
-    private Persona duenio;
 
+    @ManyToOne
     @Getter
-    @OneToOne
+    private Persona persona;
+
+
+    @ManyToOne
+    @Getter
     private Departamento departamento;
 
-    @Getter
-    @Builder.Default
     @OneToMany(mappedBy = "contrato")
-    private List<Pago> pagos = new ArrayList<>();
+    private List<Pago> pagos;
 
 }
