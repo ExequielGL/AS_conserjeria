@@ -20,13 +20,14 @@ import java.time.Instant;
  *
  * @author Diego Urrutia-Astorga.
  */
+@Getter
+@ToString
 @MappedSuperclass
 public abstract class BaseModel {
 
     /**
      * The Id.
      */
-    @Getter
     @Setter
     @Id
     private Long id;
@@ -34,7 +35,6 @@ public abstract class BaseModel {
     /**
      * The Version.
      */
-    @Getter
     @Setter
     @Version
     private Long version;
@@ -42,7 +42,6 @@ public abstract class BaseModel {
     /**
      * Creation date.
      */
-    @Getter
     @Setter
     @WhenCreated
     private Instant created;
@@ -50,18 +49,8 @@ public abstract class BaseModel {
     /**
      * Modified date.
      */
-    @Getter
     @Setter
     @WhenModified
     private Instant modified;
 
-    @Override
-    public String toString() {
-        return "BaseModel{" +
-                "id=" + id +
-                ", created=" + created +
-                ", modified=" + modified +
-                ", version=" + version +
-                '}';
-    }
 }

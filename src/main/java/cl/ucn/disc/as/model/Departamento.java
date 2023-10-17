@@ -6,6 +6,7 @@ import lombok.*;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 
+@ToString(callSuper = true)
 @AllArgsConstructor
 @Builder
 @Entity
@@ -13,23 +14,14 @@ import javax.persistence.ManyToOne;
 public class Departamento extends BaseModel {
 
     @NotNull
-    private int numero;
+    private Integer numero;
 
     @NotNull
-    private int piso;
+    private Integer piso;
 
+    @ToString.Exclude
     @ManyToOne
+    @Setter
     private Edificio edificio;
 
-    @Override
-    public String toString() {
-        String edificioNombre = (edificio != null) ? edificio.getNombre() : "N/A";
-        return "Departamento{" +
-                "super=" + super.toString() + // Llama al método toString() de BaseModel
-                ", id=" + getId() +
-                ", numero=" + numero +
-                ", piso=" + piso +
-                ", edificio=" + edificioNombre +
-                '}';
-    }
 }

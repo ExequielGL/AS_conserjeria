@@ -3,28 +3,31 @@ package cl.ucn.disc.as.services;
 import cl.ucn.disc.as.exceptions.EdificioNotFoundException;
 import cl.ucn.disc.as.exceptions.PerDepNotFoundException;
 import cl.ucn.disc.as.exceptions.SistemaException;
-import cl.ucn.disc.as.model.*;
+import cl.ucn.disc.as.model.Contrato;
+import cl.ucn.disc.as.model.Departamento;
+import cl.ucn.disc.as.model.Edificio;
+import cl.ucn.disc.as.model.Pago;
+import cl.ucn.disc.as.model.Persona;
 import io.ebean.Database;
 import io.ebean.Query;
+import java.time.Instant;
+import java.util.List;
+import javax.persistence.PersistenceException;
 import lombok.extern.slf4j.Slf4j;
 import org.jetbrains.annotations.NotNull;
 
-import javax.persistence.PersistenceException;
-import java.time.Instant;
-import java.util.List;
 
 /**
- * Sistema implementación
+ * Sistema implementación.
  *
  * @author Exequiel Gonzalez
  */
 @Slf4j
-public class SistemaImpl implements Sistema{
-
+public class SistemaImpl implements Sistema {
     private final Database database;
 
     /**
-     * The Constructor
+     * The Constructor.
      */
     public SistemaImpl(Database database) {
 
@@ -63,50 +66,28 @@ public class SistemaImpl implements Sistema{
     @Override
     public Departamento addDepartamento(Departamento departamento, Edificio edificio) {
 
-        Departamento departamentoActualizado = Departamento.builder()
-                .numero(departamento.getNumero())
-                .piso(departamento.getPiso())
-                .edificio(edificio)
-                .build();
-
+        log.debug("Adding {} to {}.", departamento, edificio);
         try {
-            edificio.addDepartamento(departamentoActualizado);
-            this.database.save(departamentoActualizado);
+            edificio.addDepartamento(departamento);
+            this.database.save(edificio);
         } catch (PersistenceException ex) {
             //TODO: save the exception
             log.error("Error ", ex);
             throw new SistemaException("Error al agregar un departamento", ex);
         }
 
-        return departamentoActualizado;
+        return departamento;
     }
 
     @Override
     public Departamento addDepartamento(Departamento departamento, Long idEdificio) {
 
         Edificio edificio = this.database.find(Edificio.class, idEdificio);
-
         if (edificio == null) {
             throw new EdificioNotFoundException("El edificio con ID " + idEdificio + " no existe");
         }
+        return this.addDepartamento(departamento, edificio);
 
-        Departamento departamentoActualizado = Departamento.builder()
-                .numero(departamento.getNumero())
-                .piso(departamento.getPiso())
-                .edificio(edificio)
-                .build();
-
-        try {
-            edificio.addDepartamento(departamentoActualizado);
-            this.database.save(departamentoActualizado);
-
-        } catch (PersistenceException ex) {
-            //TODO: save the exception
-            log.error("Error ", ex);
-            throw new SistemaException("Error al agregar un departamento", ex);
-        }
-
-        return departamentoActualizado;
     }
 
     @Override
@@ -138,21 +119,7 @@ public class SistemaImpl implements Sistema{
             throw new PerDepNotFoundException("No se encontró la persona o el departamento");
         }
 
-        Contrato contrato = Contrato.builder()
-                .fechaPago(fechaPago)
-                .persona(duenio)
-                .departamento(departamento)
-                .build();
-
-        try {
-            this.database.save(contrato);
-        } catch (PersistenceException ex) {
-            //TODO: save the exception
-            log.error("Error ", ex);
-            throw new SistemaException("Error al realizar un contrato", ex);
-        }
-
-        return contrato;
+        return this.realizarContrato(duenio, departamento, fechaPago);
     }
 
     @Override
@@ -176,3 +143,4 @@ public class SistemaImpl implements Sistema{
         return query.findList();
     }
 }
+

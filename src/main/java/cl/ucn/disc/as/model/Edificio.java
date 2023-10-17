@@ -3,11 +3,13 @@ package cl.ucn.disc.as.model;
 import io.ebean.annotation.NotNull;
 import lombok.*;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import java.util.ArrayList;
 import java.util.List;
 
+@ToString(callSuper = true)
 @Getter
 @AllArgsConstructor
 @Builder
@@ -26,21 +28,25 @@ public class Edificio extends BaseModel {
     @NotNull
     private String direccion;
 
-    @OneToMany(mappedBy = "edificio")
+    /**
+     *
+     */
+    @OneToMany(mappedBy = "edificio", cascade = CascadeType.ALL)
     private List<Departamento> departamentos;
 
+    /**
+     *
+     * @param departamento
+     */
     public void addDepartamento(Departamento departamento) {
+        // TODO: evitar los duplicados
+        for (Departamento depa : this.departamentos) {
+            if (depa.getPiso().equals(departamento.getPiso()) && depa.getNumero().equals(departamento.getNumero())) {
+                throw new IllegalArgumentException("Edificio ya tiene departamento: " + departamento.getNumero());
+            }
+        }
         departamentos.add(departamento);
+        departamento.setEdificio(this);
     }
 
-    @Override
-    public String toString() {
-        return "Edificio{" +
-                "super=" + super.toString() + // Llama al método toString() de BaseModel
-                ", id=" + getId() +
-                ", nombre='" + nombre + '\'' +
-                ", direccion='" + direccion + '\'' +
-                ", departamentos=" + departamentos +
-                '}';
-    }
 }
