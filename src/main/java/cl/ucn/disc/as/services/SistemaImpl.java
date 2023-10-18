@@ -151,7 +151,7 @@ public class SistemaImpl implements Sistema {
         Persona duenio = this.database.find(Persona.class, idDuenio);
         Departamento departamento = this.database.find(Departamento.class, idDepartamento);
         if (duenio == null || departamento == null) {
-            throw new PerDepNotFoundException("No se encontró la persona o el departamento");
+            throw new PerDepNotFoundException("No se encontró a la persona o al departamento");
         }
         return this.realizarContrato(duenio, departamento, fechaPago);
     }

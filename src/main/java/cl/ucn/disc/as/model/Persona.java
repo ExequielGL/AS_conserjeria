@@ -72,7 +72,7 @@ public class Persona extends BaseModel {
     private List<Contrato> contratos;
 
     /**
-     * Metodo que añade un contrato a una persona.
+     * Metodo que vincula un contrato a una persona.
      * @param contrato Contrato a añadir.
      */
     public void addContrato(final Contrato contrato) {

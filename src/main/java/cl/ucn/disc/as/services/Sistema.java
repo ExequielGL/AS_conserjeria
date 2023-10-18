@@ -77,7 +77,7 @@ public interface Sistema {
     List<Persona> getPersonas();
 
     /**
-     * Se obtienen los pagos de cierta persona en sistema.
+     * Se obtienen los pagos de una persona especifica en sistema.
      * @param rut Rut de la persona.
      * @return lista de pagos
      */
