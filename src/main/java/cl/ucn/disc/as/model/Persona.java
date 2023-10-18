@@ -6,13 +6,12 @@ package cl.ucn.disc.as.model;
 
 import cl.ucn.disc.as.model.exceptions.IllegalDomainException;
 import cl.ucn.disc.as.utils.ValidationUtils;
-
 import io.ebean.annotation.NotNull;
+import lombok.ToString;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.ToString;
-
+import lombok.Setter;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import java.util.ArrayList;
@@ -64,32 +63,45 @@ public class Persona extends BaseModel {
     @NotNull
     private String telefono;
 
+    /**
+     * The Contratos.
+     */
+    @Setter
+    @ToString.Exclude
     @OneToMany(mappedBy = "persona")
     private List<Contrato> contratos;
 
     /**
+     * Metodo que añade un contrato a una persona.
+     * @param contrato Contrato a añadir.
+     */
+    public void addContrato(final Contrato contrato) {
+        this.contratos.add(contrato);
+    }
+    /**
      * Custom builder to validate.
      */
-    public static class PersonaBuilder{
+    public static class PersonaBuilder {
 
         /**
          * @return the Persona.
          */
-        public Persona build(){
+        public Persona build() {
 
             //validate the rut
-            if(!ValidationUtils.isRutValid((this.rut))){
-                throw new IllegalDomainException("RUT no valido: "+this.rut);
+            if (!ValidationUtils.isRutValid((this.rut))) {
+                throw new IllegalDomainException("RUT no valido: " + this.rut);
             }
 
             //validate the email
-            if (!ValidationUtils.isEmailValid(this.email)){
-                throw new IllegalDomainException("Email no valido: "+this.email);
+            if (!ValidationUtils.isEmailValid(this.email)) {
+                throw new IllegalDomainException("Email no valido: " + this.email);
             }
 
             this.contratos = new ArrayList<>();
 
-            return new Persona(this.rut, this.nombre, this.apellidos, this.email, this.telefono,this.contratos);
+            return new Persona(this.rut, this.nombre, this.apellidos,
+                    this.email, this.telefono, this.contratos);
         }
     }
 

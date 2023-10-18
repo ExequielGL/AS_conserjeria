@@ -1,11 +1,19 @@
 package cl.ucn.disc.as.model;
 
 import io.ebean.annotation.NotNull;
-import lombok.*;
-
+import lombok.ToString;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 
+/**
+ * Departamento Class.
+ *
+ * @author Exequiel Gonzalez.
+ */
 @ToString(callSuper = true)
 @AllArgsConstructor
 @Builder
@@ -13,12 +21,21 @@ import javax.persistence.ManyToOne;
 @Getter
 public class Departamento extends BaseModel {
 
+    /**
+     * The Numero.
+     */
     @NotNull
     private Integer numero;
 
+    /**
+     * The Piso.
+     */
     @NotNull
     private Integer piso;
 
+    /**
+     * The Edificio.
+     */
     @ToString.Exclude
     @ManyToOne
     @Setter

@@ -1,14 +1,20 @@
 package cl.ucn.disc.as.model;
 
 import io.ebean.annotation.NotNull;
-import lombok.*;
-
+import lombok.ToString;
+import lombok.Getter;
+import lombok.Builder;
+import lombok.AllArgsConstructor;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
-import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Edificio Class.
+ *
+ * @author Exequiel Gonzalez.
+ */
 @ToString(callSuper = true)
 @Getter
 @AllArgsConstructor
@@ -29,24 +35,27 @@ public class Edificio extends BaseModel {
     private String direccion;
 
     /**
-     *
+     * The Departamentos.
      */
     @OneToMany(mappedBy = "edificio", cascade = CascadeType.ALL)
     private List<Departamento> departamentos;
 
     /**
-     *
-     * @param departamento
+     * Metodo para añadir un departamento al edificio.
+     * @param departamento departamento a añadir.
      */
-    public void addDepartamento(Departamento departamento) {
-        // TODO: evitar los duplicados
+    public void addDepartamento(final Departamento departamento) {
+        // TODO: Evitar los duplicados
         for (Departamento depa : this.departamentos) {
-            if (depa.getPiso().equals(departamento.getPiso()) && depa.getNumero().equals(departamento.getNumero())) {
-                throw new IllegalArgumentException("Edificio ya tiene departamento: " + departamento.getNumero());
+            if (depa.getPiso().equals(departamento.getPiso())
+                    && depa.getNumero().equals(departamento.getNumero())) {
+                throw new IllegalArgumentException("Edificio ya tiene departamento: "
+                        + departamento.getNumero());
             }
         }
-        departamentos.add(departamento);
+        this.departamentos.add(departamento);
         departamento.setEdificio(this);
+
     }
 
 }
