@@ -19,7 +19,7 @@ import java.time.Instant;
 @AllArgsConstructor
 @Builder
 @Entity
-public class Pago extends Model {
+public class Pago extends BaseModel {
 
     /**
      * The FechaPago.

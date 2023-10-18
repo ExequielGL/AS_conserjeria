@@ -77,7 +77,7 @@ public final class Main {
                 .numero(2)
                 .build();
         log.debug("Departamento before db: ${}", departamento2);
-        departamento2 = sistema.addDepartamento(departamento2, 1L);
+        departamento2 = sistema.addDepartamento(departamento2, edificio.getId());
         log.debug("Departamento after db: {}", departamento2);
         log.debug("Edificio after addDepartamento Long: {}", edificio);
 
