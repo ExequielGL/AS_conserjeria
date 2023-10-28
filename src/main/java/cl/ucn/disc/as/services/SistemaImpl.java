@@ -8,10 +8,14 @@ import cl.ucn.disc.as.model.Departamento;
 import cl.ucn.disc.as.model.Edificio;
 import cl.ucn.disc.as.model.Pago;
 import cl.ucn.disc.as.model.Persona;
+import com.github.javafaker.Faker;
+import com.github.javafaker.service.FakeValuesService;
+import com.github.javafaker.service.RandomService;
 import io.ebean.Database;
 import io.ebean.Query;
 import java.time.Instant;
 import java.util.List;
+import java.util.Locale;
 import javax.persistence.PersistenceException;
 import lombok.extern.slf4j.Slf4j;
 import org.jetbrains.annotations.NotNull;
@@ -177,6 +181,17 @@ public class SistemaImpl implements Sistema {
     }
 
     /**
+     * Se obtiene una persona especifica del Sistema.
+     * @param rut Rut de la persona a buscar
+     * @return lista de personas de tamaño 1
+     */
+    @Override
+    public List<Persona> getPersonas(String rut) {
+        Query<Persona> query = database.find(Persona.class);
+        return query.where().eq("rut", rut).findList();
+
+    }
+    /**
      * Se obtienen los pagos de cierta persona en sistema.
      * @param rut Rut de la persona.
      * @return lista de pagos
@@ -188,6 +203,44 @@ public class SistemaImpl implements Sistema {
                 .where()
                 .eq("contrato.persona.rut", rut)
                 .findList();
+    }
+
+    /**
+     * Método que pobla la base de datos con personas
+     */
+    @Override
+    public void populate(){
+
+        // build the persona
+        {
+            Persona persona = Persona.builder()
+                    .rut("20544764-4")
+                    .nombre("Exequiel")
+                    .apellidos("Gonzalez Lopez")
+                    .email("exequiel.gonzalez01@alumnos.ucn.cl")
+                    .telefono("+56934966104")
+                    .build();
+            this.database.save(persona);
+        }
+
+        // the faker
+        Locale locale = new Locale("es-CL");
+        FakeValuesService fvs = new FakeValuesService(locale, new RandomService());
+        Faker faker = new Faker(locale);
+
+        //faker
+        for (int i = 0; i < 1000; i++) {
+            Persona persona = Persona.builder()
+                    .rut(fvs.bothify("########-#"))
+                    .nombre(faker.name()
+                            .firstName())
+                    .apellidos(faker.name()
+                            .lastName())
+                    .email(fvs.bothify("????##@gmail.com"))
+                    .telefono(fvs.bothify("+569########"))
+                    .build();
+            this.database.save(persona);
+        }
     }
 }
 

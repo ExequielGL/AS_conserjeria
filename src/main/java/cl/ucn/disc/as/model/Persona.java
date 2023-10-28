@@ -6,6 +6,7 @@ package cl.ucn.disc.as.model;
 
 import cl.ucn.disc.as.model.exceptions.IllegalDomainException;
 import cl.ucn.disc.as.utils.ValidationUtils;
+import io.ebean.annotation.Cache;
 import io.ebean.annotation.NotNull;
 import lombok.ToString;
 import lombok.AllArgsConstructor;
@@ -22,6 +23,8 @@ import java.util.List;
  *
  * @author Diego Urrutia-Astorga.
  */
+@Cache(enableQueryCache = true, nearCache = true)
+
 @ToString(callSuper = true)
 @AllArgsConstructor
 @Builder
@@ -89,9 +92,9 @@ public class Persona extends BaseModel {
         public Persona build() {
 
             //validate the rut
-            if (!ValidationUtils.isRutValid((this.rut))) {
-                throw new IllegalDomainException("RUT no valido: " + this.rut);
-            }
+            //if (!ValidationUtils.isRutValid((this.rut))) {
+            //    throw new IllegalDomainException("RUT no valido: " + this.rut);
+            //}
 
             //validate the email
             if (!ValidationUtils.isEmailValid(this.email)) {

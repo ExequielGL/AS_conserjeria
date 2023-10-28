@@ -77,9 +77,21 @@ public interface Sistema {
     List<Persona> getPersonas();
 
     /**
+     * Se obtiene una persona especifica del Sistema.
+     * @param rut Rut de la persona a buscar
+     * @return lista de personas de tamaño 1
+     */
+    List<Persona> getPersonas(String rut);
+
+    /**
      * Se obtienen los pagos de una persona especifica en sistema.
      * @param rut Rut de la persona.
      * @return lista de pagos
      */
     List<Pago> getPagos(String rut);
+
+    /**
+     * Método que pobla la base de datos con personas
+     */
+    void populate();
 }
