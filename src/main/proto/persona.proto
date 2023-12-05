@@ -1,5 +1,5 @@
 syntax = "proto3";
-package java;
+package conserjeria;
 
 option java_package = "cl.ucn.disc.as.conserjeria.grpc";
 option java_multiple_files = true;
