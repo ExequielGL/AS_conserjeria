@@ -1,8 +1,8 @@
-package cl.ucn.disc.as;
+package cl.ucn.disc.as.conserjeria;
 
 
-import cl.ucn.disc.as.ui.ApiRestServer;
-import cl.ucn.disc.as.ui.WebController;
+import cl.ucn.disc.as.conserjeria.ui.ApiRestServer;
+import cl.ucn.disc.as.conserjeria.ui.WebController;
 import io.javalin.Javalin;
 import lombok.extern.slf4j.Slf4j;
 

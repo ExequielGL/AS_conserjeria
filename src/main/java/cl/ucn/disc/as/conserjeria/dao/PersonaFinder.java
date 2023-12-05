@@ -2,10 +2,10 @@
  * Copyright (c) 2023. Arquitectura de Sistemas, DISC, UCN.
  */
 
-package cl.ucn.disc.as.dao;
+package cl.ucn.disc.as.conserjeria.dao;
 
-import cl.ucn.disc.as.model.Persona;
-import cl.ucn.disc.as.model.query.QPersona;
+import cl.ucn.disc.as.conserjeria.model.Persona;
+import cl.ucn.disc.as.conserjeria.model.query.QPersona;
 import io.ebean.Finder;
 import org.jetbrains.annotations.NotNull;
 

@@ -1,13 +1,13 @@
-package cl.ucn.disc.as.services;
+package cl.ucn.disc.as.conserjeria.services;
 
-import cl.ucn.disc.as.exceptions.EdificioNotFoundException;
-import cl.ucn.disc.as.exceptions.PerDepNotFoundException;
-import cl.ucn.disc.as.exceptions.SistemaException;
-import cl.ucn.disc.as.model.Contrato;
-import cl.ucn.disc.as.model.Departamento;
-import cl.ucn.disc.as.model.Edificio;
-import cl.ucn.disc.as.model.Pago;
-import cl.ucn.disc.as.model.Persona;
+import cl.ucn.disc.as.conserjeria.exceptions.EdificioNotFoundException;
+import cl.ucn.disc.as.conserjeria.exceptions.PerDepNotFoundException;
+import cl.ucn.disc.as.conserjeria.exceptions.SistemaException;
+import cl.ucn.disc.as.conserjeria.model.Contrato;
+import cl.ucn.disc.as.conserjeria.model.Edificio;
+import cl.ucn.disc.as.conserjeria.model.Pago;
+import cl.ucn.disc.as.conserjeria.model.Departamento;
+import cl.ucn.disc.as.conserjeria.model.Persona;
 import com.github.javafaker.Faker;
 import com.github.javafaker.service.FakeValuesService;
 import com.github.javafaker.service.RandomService;

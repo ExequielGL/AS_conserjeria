@@ -1,4 +1,4 @@
-package cl.ucn.disc.as.exceptions;
+package cl.ucn.disc.as.conserjeria.exceptions;
 
 public class EdificioNotFoundException extends RuntimeException {
 

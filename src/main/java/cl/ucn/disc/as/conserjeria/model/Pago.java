@@ -1,6 +1,5 @@
-package cl.ucn.disc.as.model;
+package cl.ucn.disc.as.conserjeria.model;
 
-import io.ebean.Model;
 import io.ebean.annotation.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

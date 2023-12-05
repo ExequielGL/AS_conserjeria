@@ -1,10 +1,10 @@
-package cl.ucn.disc.as.services;
+package cl.ucn.disc.as.conserjeria.services;
 
-import cl.ucn.disc.as.model.Edificio;
-import cl.ucn.disc.as.model.Persona;
-import cl.ucn.disc.as.model.Departamento;
-import cl.ucn.disc.as.model.Contrato;
-import cl.ucn.disc.as.model.Pago;
+import cl.ucn.disc.as.conserjeria.model.Edificio;
+import cl.ucn.disc.as.conserjeria.model.Persona;
+import cl.ucn.disc.as.conserjeria.model.Departamento;
+import cl.ucn.disc.as.conserjeria.model.Contrato;
+import cl.ucn.disc.as.conserjeria.model.Pago;
 import java.time.Instant;
 import java.util.List;
 

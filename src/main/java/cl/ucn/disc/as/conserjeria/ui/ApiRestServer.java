@@ -1,4 +1,4 @@
-package cl.ucn.disc.as.ui;
+package cl.ucn.disc.as.conserjeria.ui;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;

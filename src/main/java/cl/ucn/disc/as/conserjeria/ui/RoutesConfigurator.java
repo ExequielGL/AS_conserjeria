@@ -1,4 +1,4 @@
-package cl.ucn.disc.as.ui;
+package cl.ucn.disc.as.conserjeria.ui;
 
 import io.javalin.Javalin;
 
