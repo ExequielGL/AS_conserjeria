@@ -12,7 +12,7 @@ import java.io.IOException;
 /**
  * The Main.
  *
- * @author Arquitectura de Software.
+ * @author Exequiel González.
  */
 @Slf4j
 public class TheMain {
